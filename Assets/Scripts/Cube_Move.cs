@@ -13,7 +13,10 @@ public class Cube_Move : MonoBehaviour
     public GameObject bullet;
     public GameObject aimOffset;
     public ParticleSystem muzzleFlash;
+    //reference to the speed of our dash
     public float dashSpeed;
+    //reference to the speed of our impact pushback
+    public float recoilSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,12 +54,14 @@ public class Cube_Move : MonoBehaviour
             rigidBody.velocity = Vector3.zero;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        //We add a Left force to our player, causing a dash to the left
+        if (Input.GetKeyDown(KeyCode.A))
         {
             rigidBody.AddForce(-transform.right * dashSpeed * Time.fixedDeltaTime);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        //We add a Right force to our player, causing a dash to the right
+        if (Input.GetKeyDown(KeyCode.D))
         {
             rigidBody.AddForce(transform.right * dashSpeed * Time.fixedDeltaTime);
         }
@@ -73,11 +78,15 @@ public class Cube_Move : MonoBehaviour
             spawnBullet.transform.rotation = Rotation;
 
             //we get our Bullet RigidBody and we add a force in the forward direction
-            spawnBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 2000);
+            spawnBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 4000);
             
             //Plays the Muzzle Flash particle effect
             muzzleFlash.Play();
+
+            //plays the kickback aesthetic from shooting
+            rigidBody.AddForce(-transform.forward * recoilSpeed * Time.fixedDeltaTime);
         }
+
         
     }
 }

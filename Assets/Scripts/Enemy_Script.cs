@@ -42,6 +42,9 @@ public class Enemy_Script : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+
+            //We destroy our bullet on impact
+            Destroy(collision.gameObject);
         }
     }
 }
