@@ -13,6 +13,7 @@ public class Cube_Move : MonoBehaviour
     public GameObject bullet;
     public GameObject aimOffset;
     public ParticleSystem muzzleFlash;
+    public float dashSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +49,16 @@ public class Cube_Move : MonoBehaviour
         else
         {
             rigidBody.velocity = Vector3.zero;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            rigidBody.AddForce(-transform.right * dashSpeed * Time.fixedDeltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            rigidBody.AddForce(transform.right * dashSpeed * Time.fixedDeltaTime);
         }
 
         //Input program for shooting the bullets

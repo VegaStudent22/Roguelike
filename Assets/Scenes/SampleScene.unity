@@ -1238,6 +1238,7 @@ MonoBehaviour:
   bullet: {fileID: 3860414379551819453, guid: 2a41351266110734d83de980daa8b1ff, type: 3}
   aimOffset: {fileID: 1401121631}
   muzzleFlash: {fileID: 255357278}
+  dashSpeed: 15000
 --- !u!1 &1794279949
 GameObject:
   m_ObjectHideFlags: 0
