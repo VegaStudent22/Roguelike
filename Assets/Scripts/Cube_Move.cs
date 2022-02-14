@@ -17,6 +17,7 @@ public class Cube_Move : MonoBehaviour
     public float dashSpeed;
     //reference to the speed of our impact pushback
     public float recoilSpeed;
+    public Animator tankAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +86,9 @@ public class Cube_Move : MonoBehaviour
 
             //plays the kickback aesthetic from shooting
             rigidBody.AddForce(-transform.forward * recoilSpeed * Time.fixedDeltaTime);
+
+            //Triggers attack animation when left mouse is clicked
+            tankAnimator.SetTrigger("Attack");
         }
 
         
