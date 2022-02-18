@@ -9,6 +9,7 @@ public class Enemy_Script : MonoBehaviour
     public NavMeshAgent cylinderAgent;
     //Reference to the Player cube
     public GameObject playerCube;
+    public GameObject aoePrefab;
     //Current HP
     public int HP;
     // Start is called before the first frame update
@@ -49,6 +50,8 @@ public class Enemy_Script : MonoBehaviour
 
         if (collision.gameObject.tag == "Special Bullet")
         {
+            Instantiate(aoePrefab, collision.gameObject.transform.position, Quaternion.identity);
+
             //Minus HP
             HP -= 20;
 
@@ -62,4 +65,12 @@ public class Enemy_Script : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.gameObject.tag == "AoE")
+        {
+            Destroy(this.gameObject);//same text as line 61
+        }
+    }
+
 }

@@ -28,6 +28,18 @@ public class Cube_Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lookAtMouse();
+
+        movement();
+
+        dash();
+
+        shooting();
+
+
+    }
+    void lookAtMouse()
+    {
         //Define a ray between camera and mouse position
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -40,7 +52,10 @@ public class Cube_Move : MonoBehaviour
             //rotates our cube to look at our mouse position
             transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
         }
+    }
 
+    void movement()
+    {
         if (Input.GetKey(KeyCode.W))
         {
             //adds force to our rigid body
@@ -55,7 +70,10 @@ public class Cube_Move : MonoBehaviour
         {
             rigidBody.velocity = Vector3.zero;
         }
+    }
 
+    void dash()
+    {
         //We add a Left force to our player, causing a dash to the left
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -67,7 +85,10 @@ public class Cube_Move : MonoBehaviour
         {
             rigidBody.AddForce(transform.right * dashSpeed * Time.fixedDeltaTime);//same code as line 62
         }
-
+    }
+    
+    void shooting()
+    {
         //Input program for shooting the bullets
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -81,7 +102,7 @@ public class Cube_Move : MonoBehaviour
 
             //we get our Bullet RigidBody and we add a force in the forward direction
             spawnBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 4000);
-            
+
             //Plays the Muzzle Flash particle effect
             muzzleFlash.Play();
 
@@ -114,6 +135,5 @@ public class Cube_Move : MonoBehaviour
             //Triggers attack animation when left mouse is clicked
             tankAnimator.SetTrigger("Attack");//same code as line 92
         }
-
     }
 }

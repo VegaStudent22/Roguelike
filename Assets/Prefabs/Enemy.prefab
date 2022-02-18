@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cylinderAgent: {fileID: 7606989488890021450}
   playerCube: {fileID: 0}
+  aoePrefab: {fileID: 2377697921320086167, guid: 9efca829ae5b1c643a847194a98f5703, type: 3}
   HP: 10
 --- !u!54 &7606989488890021452
 Rigidbody:
