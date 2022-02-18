@@ -11,6 +11,7 @@ public class Cube_Move : MonoBehaviour
     //reference to barrel;
     public GameObject barrel;
     public GameObject bullet;
+    public GameObject specialBullet;
     public GameObject aimOffset;
     public ParticleSystem muzzleFlash;
     //reference to the speed of our dash
@@ -58,13 +59,13 @@ public class Cube_Move : MonoBehaviour
         //We add a Left force to our player, causing a dash to the left
         if (Input.GetKeyDown(KeyCode.A))
         {
-            rigidBody.AddForce(-transform.right * dashSpeed * Time.fixedDeltaTime);
+            rigidBody.AddForce(-transform.right * dashSpeed * Time.fixedDeltaTime);//same code as line 47
         }
 
         //We add a Right force to our player, causing a dash to the right
         if (Input.GetKeyDown(KeyCode.D))
         {
-            rigidBody.AddForce(transform.right * dashSpeed * Time.fixedDeltaTime);
+            rigidBody.AddForce(transform.right * dashSpeed * Time.fixedDeltaTime);//same code as line 62
         }
 
         //Input program for shooting the bullets
@@ -91,6 +92,28 @@ public class Cube_Move : MonoBehaviour
             tankAnimator.SetTrigger("Attack");
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            //Spawn the bullet at the barrel's location and store it in a variable
+            GameObject spawnBullet = Instantiate(specialBullet, barrel.transform.position, Quaternion.identity);//same code as line 75
+
+            //Rotate bullet to look at the aimOffset game object
+            Vector3 relativePosition = aimOffset.transform.position - spawnBullet.transform.position;
+            Quaternion Rotation = Quaternion.LookRotation(relativePosition, Vector3.forward);//same code as line 79
+            spawnBullet.transform.rotation = Rotation;//same code as line 80
+
+            //we get our Bullet RigidBody and we add a force in the forward direction
+            spawnBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 4000);//same code as line 83
+
+            //Plays the Muzzle Flash particle effect
+            muzzleFlash.Play();//same code as line 86
+
+            //plays the kickback aesthetic from shooting
+            rigidBody.AddForce(-transform.forward * recoilSpeed * Time.fixedDeltaTime);//same code as line 89
+
+            //Triggers attack animation when left mouse is clicked
+            tankAnimator.SetTrigger("Attack");//same code as line 92
+        }
+
     }
 }

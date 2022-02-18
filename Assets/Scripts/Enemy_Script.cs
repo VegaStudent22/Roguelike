@@ -46,5 +46,20 @@ public class Enemy_Script : MonoBehaviour
             //We destroy our bullet on impact
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.tag == "Special Bullet")
+        {
+            //Minus HP
+            HP -= 20;
+
+            //If enemy's HP is less than or equal to 0, we destroy it.
+            if (HP <= 0)
+            {
+                Destroy(this.gameObject);//same text as line 43
+            }
+
+            //We destroy our bullet on impact
+            Destroy(collision.gameObject);
+        }
     }
 }
